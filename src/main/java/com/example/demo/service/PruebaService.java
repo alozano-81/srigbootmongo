@@ -6,4 +6,6 @@ public interface PruebaService {
 
     public DocumentPruebaMDB getTodos(String name);
 
+    public String buscarPorUserPassword(String u, String p);
+
 }
