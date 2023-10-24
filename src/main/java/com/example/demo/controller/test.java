@@ -1,5 +1,8 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.demo.dto.ClienteDTO;
 import com.example.demo.service.PruebaService;
 
 @RestController
@@ -50,6 +54,16 @@ public class test {
             return new ResponseEntity<>(out, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+    }
+
+    @GetMapping("/get-all-clientes")
+    public ResponseEntity<List<ClienteDTO>> getAll() {
+        List<ClienteDTO> out = new ArrayList<>();
+        out = pruebaService.getAllClientes();
+        System.out.println("llega");
+
+        // return new ResponseEntity<>("OKK", HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(out, HttpStatus.ACCEPTED);
     }
 
 }
