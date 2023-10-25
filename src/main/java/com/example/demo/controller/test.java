@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,10 +32,10 @@ public class test {
         return new ResponseEntity<>("OKK", HttpStatus.ACCEPTED);
     }
 
-    @GetMapping(value = "/validar-ingreso")
+    @PostMapping(value = "/validar-ingreso")
     public ResponseEntity<String> consultar(
-            @RequestParam String usuario,
-            @RequestParam String password
+            @RequestParam(value = "usuario",  required = true) String usuario,
+            @RequestParam(value = "password", required = true) String password
 
     ) {
         
