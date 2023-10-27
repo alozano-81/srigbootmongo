@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,22 +33,19 @@ public class test {
         return new ResponseEntity<>("OKK", HttpStatus.ACCEPTED);
     }
 
-    @PostMapping(value = "/validar-ingreso")
-    public ResponseEntity<String> consultar(
-            @RequestParam(value = "usuario",  required = true) String usuario,
-            @RequestParam(value = "password", required = true) String password
-
-    ) {
-        
+    @PostMapping(value = "/validar-ingreso", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> validarIngresoSesion(
+            @RequestParam(value = "usuario", required = false) String usuario,
+            @RequestParam(value = "password", required = false) String password) {
+        // System.out.println("====>" + usuario);
+        // System.out.println("==+++==>" + password);
         String out = "";
-        out = pruebaService.buscarPorUserPassword(usuario, password);
-        
-
-        if (out.equals("error")) {
-            System.out.println("mostrar error: " + out);
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, out);
-        }
         try {
+            out = pruebaService.buscarPorUserPassword(usuario, password);
+            if (out.equals("error")) {
+                System.out.println("mostrar error: " + out);
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, out);
+            }
             System.out.println("llega ytr");
             return new ResponseEntity<>(out, HttpStatus.ACCEPTED);
 
